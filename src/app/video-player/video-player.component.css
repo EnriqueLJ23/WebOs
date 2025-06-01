@@ -1,0 +1,390 @@
+/* tv-player.component.css */
+
+.tv-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font-family: "Courier New", monospace;
+}
+
+.tv-frame {
+  position: relative;
+  background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+
+  padding: 30px 25px 20px 25px;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 3px #333, 0 0 0 6px #222;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4/3;
+  min-width: 320px;
+}
+
+.tv-screen {
+  position: relative;
+  background: #000;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.8), inset 0 0 0 2px #1a1a1a,
+    inset 0 0 0 4px #333;
+  aspect-ratio: 16/9;
+}
+
+.screen-bezel {
+  position: relative;
+  height: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+.video-display {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* No Signal Effect */
+.no-signal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: staticNoise 0.5s infinite;
+}
+
+.static-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 255, 255, 0.02) 1px,
+    rgba(255, 255, 255, 0.02) 2px
+  );
+  animation: staticHorizontal 2s infinite linear;
+}
+
+.no-signal-text {
+  color: #666;
+  font-size: clamp(12px, 3vw, 18px);
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  letter-spacing: 2px;
+  z-index: 2;
+}
+
+/* Buffering Effect */
+.buffering {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background: #666;
+  border-radius: 50%;
+  animation: loadingPulse 1.5s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.buffering-text {
+  font-size: clamp(10px, 2.5vw, 14px);
+  letter-spacing: 1px;
+}
+
+/* TV Brand */
+.tv-brand {
+  position: absolute;
+  top: 8px;
+  right: 25px;
+  color: #666;
+  font-size: clamp(8px, 2vw, 12px);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Control Panel */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.power-led {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.power-led.on {
+  background: #00ff00;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.info-display {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.video-title {
+  color: #ccc;
+  font-size: clamp(11px, 2.5vw, 14px);
+  font-weight: bold;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-counter {
+  color: #888;
+  font-size: clamp(9px, 2vw, 11px);
+}
+
+/* Analog Controls */
+.analog-controls {
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 15px);
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.control-knob {
+  position: relative;
+  width: clamp(45px, 10vw, 60px);
+  height: clamp(45px, 10vw, 60px);
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.control-knob:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.control-knob:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
+.control-knob:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+.knob-face {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 30%, #555, #333, #222);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.knob-face.power-knob {
+  background: radial-gradient(circle at 30% 30%, #664444, #443333, #222222);
+}
+
+.knob-indicator {
+  position: absolute;
+  top: 8px;
+  width: 3px;
+  height: 8px;
+  background: #888;
+  border-radius: 2px;
+}
+
+.knob-label {
+  color: #bbb;
+  font-size: clamp(7px, 1.5vw, 9px);
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* Volume Section */
+.volume-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.volume-label {
+  color: #888;
+  font-size: clamp(9px, 2vw, 11px);
+  font-weight: bold;
+}
+
+.volume-knob {
+  -webkit-appearance: none;
+  width: 80px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-knob:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.volume-knob::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, #666, #333);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.volume-knob::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, #666, #333);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.volume-display {
+  color: #888;
+  font-size: clamp(9px, 2vw, 11px);
+  min-width: 25px;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes staticNoise {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes staticHorizontal {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes loadingPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tv-container {
+    padding: 10px;
+  }
+
+  .tv-frame {
+    padding: 20px 15px 15px 15px;
+  }
+
+  .analog-controls {
+    gap: 8px;
+  }
+
+  .volume-knob {
+    width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tv-frame {
+    min-width: 280px;
+  }
+
+  .control-panel {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .analog-controls {
+    gap: 6px;
+  }
+}

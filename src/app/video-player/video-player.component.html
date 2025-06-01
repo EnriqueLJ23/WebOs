@@ -1,0 +1,143 @@
+<div class="tv-container bg-transparent dark:bg-transparent">
+			<div class="tv-frame">
+				<div class="tv-screen">
+					<div class="screen-bezel">
+						<div class="video-display" #videoDisplay>
+							@defer (on interaction(powerButton)) {
+								<youtube-player
+									#player
+									[playerVars]="{
+										autoplay: 1,
+										controls: 0,
+										rel: 0,
+										fs: 0
+									}"
+									suggestedQuality="hd720"
+									disablePlaceholder
+									[videoId]="currentVideo().videoId"
+									[height]="videoHeight()"
+									[width]="videoWidth()"
+									[hidden]="!showVideo()"
+									(ready)="onPlayerReady()"
+									(stateChange)="onPlayerStateChange($event)"
+								/>
+							}
+							
+							@if (!isPlaying() && !isBuffering()) {
+								<div class="no-signal">
+									<div class="static-lines"></div>
+									<div class="no-signal-text text-gray-400 dark:text-gray-500">
+										{{ isPoweredOn() ? 'NO SIGNAL' : 'POWER OFF' }}
+									</div>
+								</div>
+							}
+							
+							@if (isBuffering()) {
+								<div class="no-signal">
+									<div class="static-lines"></div>
+									<div class="no-signal-text text-gray-400 dark:text-gray-500">LOADING...</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+				
+				<!-- TV Brand Label -->
+				<div class="tv-brand text-gray-500 dark:text-gray-400">RETROOOO</div>
+				
+				<!-- Control Panel -->
+				<div class="control-panel bg-gradient-to-br from-gray-600 to-gray-700 dark:from-gray-700 dark:to-gray-800">
+					<!-- Power LED -->
+					<div class="power-led transition-all duration-300" 
+						[class]="isPoweredOn() ? 'power-led on' : 'power-led'"></div>
+					
+					<!-- Video Info Display -->
+					<div class="info-display">
+						<div class="video-title text-gray-200 dark:text-gray-300">
+							{{ displayTitle() }}
+						</div>
+						<div class="video-counter text-gray-400 dark:text-gray-500">
+							{{ currentVideoIndex() + 1 }} / {{ playlist().length }}
+						</div>
+					</div>
+					
+					<!-- Control Buttons -->
+					<div class="analog-controls">
+						<button
+							class="control-knob prev transition-transform duration-200 hover:scale-105 active:scale-95"
+							(click)="previousVideo()"
+							[disabled]="!isPoweredOn()"
+							title="Previous Video"
+						>
+							<div class="knob-face">
+								<div class="knob-indicator bg-gray-400"></div>
+								<span class="knob-label text-gray-300">PREV</span>
+							</div>
+						</button>
+						
+						<button
+							#powerButton
+							class="control-knob power transition-transform duration-200 hover:scale-105 active:scale-95"
+							(click)="togglePower()"
+							title="Power"
+						>
+							<div class="knob-face power-knob">
+								<div class="knob-indicator bg-gray-400"></div>
+								<span class="knob-label text-gray-300">PWR</span>
+							</div>
+						</button>
+						
+						<button
+							class="control-knob play-pause transition-transform duration-200 hover:scale-105 active:scale-95"
+							(click)="togglePlayPause()"
+							[disabled]="!isPoweredOn()"
+							[title]="isPlaying() ? 'Pause' : 'Play'"
+						>
+							<div class="knob-face">
+								<div class="knob-indicator bg-gray-400"></div>
+								<span class="knob-label text-gray-300">{{ isPlaying() ? "PAUSE" : "PLAY" }}</span>
+							</div>
+						</button>
+						
+						<button
+							class="control-knob skip transition-transform duration-200 hover:scale-105 active:scale-95"
+							(click)="skipForward()"
+							[disabled]="!isPoweredOn()"
+							title="Skip 10s"
+						>
+							<div class="knob-face">
+								<div class="knob-indicator bg-gray-400"></div>
+								<span class="knob-label text-gray-300">+10s</span>
+							</div>
+						</button>
+						
+						<button
+							class="control-knob next transition-transform duration-200 hover:scale-105 active:scale-95"
+							(click)="nextVideo()"
+							[disabled]="!isPoweredOn()"
+							title="Next Video"
+						>
+							<div class="knob-face">
+								<div class="knob-indicator bg-gray-400"></div>
+								<span class="knob-label text-gray-300">NEXT</span>
+							</div>
+						</button>
+					</div>
+					
+					<!-- Volume Control -->
+					<div class="volume-section">
+						<label class="volume-label text-gray-400">VOL</label>
+						<input
+							type="range"
+							class="volume-knob"
+							min="0"
+							max="100"
+							[value]="volume()"
+							(input)="setVolume($event)"
+							[disabled]="!isPoweredOn()"
+						/>
+						<span class="volume-display text-gray-400 min-w-[25px] text-center">{{ volume() }}</span>
+					</div>
+				</div>
+			</div>
+		</div>

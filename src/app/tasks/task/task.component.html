@@ -1,0 +1,59 @@
+<div class="task-item" 
+     [class.priority-high]="task().priority === 'high'" 
+     [class.priority-medium]="task().priority === 'medium'"
+     [class.priority-low]="task().priority === 'low'"
+     [class.completed]="task().status === 'completed'">
+  
+  <div class="task-content">
+    <div class="task-title" [class.completed]="task().status === 'completed'">
+      <div class="task-checkbox" 
+           [class.checked]="task().status === 'completed'"
+           (click)="toggleComplete()">
+        @if (task().status === 'completed') {
+          <span>✓</span>
+        }
+      </div>
+      {{task().title}}
+    </div>
+    
+    @if (task().summary) {
+      <div class="task-description">{{task().summary}}</div>
+    }
+    
+    <div class="task-footer">
+      <div class="due-date" 
+           [class.overdue]="isOverdue()"
+           [class.due-soon]="isDueSoon()">
+        <span>📅</span>
+        <span>Due: {{formatDate(task().dueDate)}}</span>
+      </div>
+      
+      @if (task().priority) {
+        <div class="priority-badge" 
+             [class.priority-high]="task().priority === 'high'"
+             [class.priority-medium]="task().priority === 'medium'"
+             [class.priority-low]="task().priority === 'low'">
+          {{task().priority}}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="task-meta">
+    <span class="status" 
+          [class.status-pending]="task().status === 'pending'"
+          [class.status-progress]="task().status === 'in-progress' || task().status === 'progress'"
+          [class.status-completed]="task().status === 'completed'">
+      {{getStatusText()}}
+    </span>
+
+    <div class="task-actions">
+      <button class="btn btn-edit" (click)="onEdit()">
+        Edit
+      </button>
+      <button class="btn btn-delete" (click)="onDelete()">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

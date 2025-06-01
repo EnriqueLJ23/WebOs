@@ -1,0 +1,12 @@
+<div class="sidenav">
+  @for (section of sections; track section) {
+  <div
+    class="nav-item"
+    [class.active]="section.title === activeSection"
+    (click)="selectSection(section.title)"
+  >
+    <img [src]="section.icon" alt=""> 
+    <span>{{ section.title }}</span>
+  </div>
+  }
+</div>

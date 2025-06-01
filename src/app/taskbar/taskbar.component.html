@@ -1,0 +1,17 @@
+<div class="taskbar">
+  <div class="apps">
+    <button class="start-button">
+      <img src="start-menu.png" alt="Start" class="start-icon" />
+    </button>
+    <div class="open-windows">
+      @for (win of windows(); track $index) {
+       <button class="task-button">
+      <img [src]="win.icon" alt="Start" class="task-icon" />
+    </button>
+      }
+    </div>
+  </div>
+  <div class="date">
+    <p id="date-time">{{formattedDate | date:'mediumDate'}} {{formattedTime}}</p>
+  </div> 
+</div>

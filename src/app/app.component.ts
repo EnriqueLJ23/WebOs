@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { TaskbarComponent } from "./taskbar/taskbar.component";
+import { DesktopComponent } from "./desktop/desktop/desktop.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ TaskbarComponent, DesktopComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

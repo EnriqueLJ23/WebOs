@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  height: 100%;
+}
+
+app-side-bar {
+    background-color: #333233;
+}
+
+app-file-explorer {
+  flex: 1;
+    background-color: #1E1E1E;
+}

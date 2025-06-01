@@ -1,0 +1,4 @@
+<div class="container">
+  <app-side-bar (sectionSelected)="onSectionChange($event)"></app-side-bar>
+  <app-file-explorer [section]="currentSection()"></app-file-explorer>
+</div>

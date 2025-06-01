@@ -1,0 +1,70 @@
+<div class="music-player">
+  <!-- Hidden YouTube iframe for audio-only -->
+  <youtube-player
+    #player
+    [playerVars]="{
+        autoplay:1
+    }"
+    suggestedQuality="small"
+    disablePlaceholder
+    [videoId]="currentTrack.videoId"
+    [height]="1"
+    [width]="1"
+    hidden
+    (ready)="onPlayerReady()"
+    (stateChange)="onPlayerStateChange($event)"
+  ></youtube-player>
+
+  <!-- Album Art Placeholder -->
+  <div class="album-art">
+    <div class="vinyl-record" [class.spinning]="isPlaying">
+      <div class="vinyl-center"></div>
+    </div>
+  </div>
+
+  <!-- Track Info -->
+  <div class="track-info">
+    <div class="track-title">{{ currentTrack.title }}</div>
+    <div class="track-artist">{{ currentTrack.artist }}</div>
+    <div class="track-counter">{{ currentTrackIndex + 1 }} of {{ playlist.length }}</div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <span class="time-display">{{ formatTime(currentTime) }}</span>
+    <div class="progress-bar" (click)="seekTo($event)">
+      <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+    </div>
+    <span class="time-display">{{ formatTime(duration) }}</span>
+  </div>
+
+  <!-- Main Controls -->
+  <div class="controls">
+    <button class="control-btn secondary" (click)="previousTrack()" aria-label="Previous track">
+      <span class="icon">⏮️</span>
+    </button>
+    <button class="control-btn primary" (click)="togglePlayPause()" aria-label="Play/Pause">
+      <span class="icon">{{ isPlaying ? '⏸️' : '▶️' }}</span>
+    </button>
+    <button class="control-btn secondary" (click)="nextTrack()" aria-label="Next track">
+      <span class="icon">⏭️</span>
+    </button>
+  </div>
+
+ 
+  <!-- Volume Control -->
+  <div class="volume-container">
+    <span class="volume-icon">🔊</span>
+    <input
+      type="range"
+      class="volume-slider"
+      min="0"
+      max="100"
+      [value]="volume"
+      (input)="setVolume($event)"
+    />
+    <span class="volume-display">{{ volume }}%</span>
+  </div>
+
+ 
+</div>

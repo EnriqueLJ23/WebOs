@@ -1,0 +1,63 @@
+<!-- text-editor.component.html -->
+<div class="editor-window">
+  <!-- File Menu Bar -->
+  <div class="menu-bar">
+    <div class="menu-item" (click)="toggleFileMenu()">
+      File @if (showFileMenu) {
+      <div class="dropdown-menu" (click)="$event.stopPropagation()">
+        <div class="menu-option" (click)="showSave()">Save</div>
+        @if (savedFiles.length > 0) {
+        <div class="menu-option">
+          Open
+          <div class="submenu">
+            @for (file of savedFiles; track file) {
+            <div
+              class="menu-option"
+              (click)="openFile(file)"
+            >
+              {{ file }}
+            </div>
+            }
+          </div>
+        </div>
+        }
+
+        <div class="menu-option" (click)="exportFile()">Export</div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Text Editor Area -->
+  <textarea
+    class="editor-area"
+    [(ngModel)]="editorContent"
+    placeholder="Start typing here..."
+  >
+  </textarea>
+
+  <!-- Save Dialog -->
+  @if (showSaveDialog) {
+  <div class="modal-overlay" (click)="closeSaveDialog()">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <h3>Save File</h3>
+      <input
+        type="text"
+        [(ngModel)]="fileName"
+        placeholder="Enter filename..."
+        class="filename-input"
+        (keyup.enter)="saveFile()"
+      />
+      <div class="modal-buttons">
+        <button (click)="saveFile()" [disabled]="!fileName.trim()">Save</button>
+        <button (click)="closeSaveDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- Click outside to close menu -->
+@if (showFileMenu) {
+<div class="backdrop" (click)="closeFileMenu()"></div>
+}

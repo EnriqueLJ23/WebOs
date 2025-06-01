@@ -1,0 +1,72 @@
+<div class="app-window">
+  <div class="window-content">
+    <div class="intro">
+      <h2>My Tasks</h2>
+      <p>Stay organized and productive with your personal task manager</p>
+    </div>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="add-task-btn" (click)="toggleNewTaskForm()">
+        <span>+</span>
+        Add Task
+      </button>
+      <div class="task-stats">
+        <div class="stat-item">
+          <div class="stat-dot pending"></div>
+          <span>{{ getPendingCount() }} Pending</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-dot progress"></div>
+          <span>{{ getInProgressCount() }} In Progress</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-dot completed"></div>
+          <span>{{ getCompletedCount() }} Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Task Form -->
+    @if (showNewTaskForm()) {
+      <div class="new-task-section">
+        <app-new-task
+          (close)="closeNewTaskForm()"
+          (taskCreated)="onTaskCreated($event)"
+        ></app-new-task>
+      </div>
+    }
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-state">
+        <p>Loading your tasks...</p>
+      </div>
+    }
+    <!-- Error State -->
+    @if (error()) {
+      <div class="error-state">
+        <p>{{ error() }}</p>
+      </div>
+    }
+    <!-- Tasks List -->
+    @if (!isLoading() && !error()) {
+      <div class="tasks-list">
+        @if (tasks().length === 0) {
+          <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3>No tasks yet</h3>
+            <p>Create your first task to get started!</p>
+          </div>
+        } @else { 
+          @for (task of tasks(); track task.title) {
+            <app-task
+              [task]="task"
+              (deleteTask)="deleteTask($event)"
+              (editTask)="editTask($event)"
+            />
+          } 
+        }
+      </div>
+    }
+  </div>
+</div>

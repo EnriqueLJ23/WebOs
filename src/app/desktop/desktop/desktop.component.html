@@ -1,0 +1,30 @@
+<div class="desktop">
+ 
+  <div 
+    cdkDropList
+    cdkDropListOrientation="mixed"
+    (cdkDropListDropped)="drop($event)"
+    class="icon-container"
+  >
+    @for (icon of desktopIcons; track $index) {
+      <app-desktop-icon
+        cdkDrag
+        cdkDragBoundary=".desktop"
+        [icon]="icon"
+        (openApp)="onOpenApp($event)"
+      />
+    }
+  </div>
+
+  <!-- Windows without CDK drag - they'll handle dragging internally -->
+  @for (win of windows(); track win.id) {
+    <app-window
+      [title]="win.title"
+      [id]="win.id"
+      [zIndex]="win.zIndex"
+      (close)="onCloseWindow($event)"
+      [componentToRender]="win.component"
+      (bringToFront)="onBringToFront($event)"
+    ></app-window>
+  }
+</div>

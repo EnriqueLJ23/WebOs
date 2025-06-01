@@ -1,0 +1,206 @@
+/* music-player.component.css */
+.music-player {
+  background: #1e1e1e;
+  color: #cccccc;
+  padding: 24px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+}
+
+.album-art {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.vinyl-record {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid #3c3c3c;
+  transition: transform 0.3s ease;
+}
+
+.vinyl-record.spinning {
+  animation: spin 3s linear infinite;
+}
+
+.vinyl-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: #007acc;
+  border-radius: 50%;
+  border: 2px solid #005a9e;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.track-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.track-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.track-artist {
+  font-size: 0.9rem;
+  color: #9d9d9d;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.time-display {
+  font-size: 0.8rem;
+  color: #9d9d9d;
+  min-width: 35px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #3c3c3c;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007acc, #0099ff);
+  border-radius: 2px;
+  transition: width 0.1s ease;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.control-btn {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.control-btn.primary {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #007acc, #005a9e);
+  color: white;
+}
+
+.control-btn.primary:hover {
+  background: linear-gradient(135deg, #0099ff, #007acc);
+  transform: scale(1.05);
+}
+
+.control-btn.secondary {
+  width: 44px;
+  height: 44px;
+  background: #2d2d2d;
+  color: #cccccc;
+  border: 1px solid #3c3c3c;
+}
+
+.control-btn.secondary:hover {
+  background: #3c3c3c;
+  color: #ffffff;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.volume-icon {
+  font-size: 1rem;
+}
+
+.volume-slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #3c3c3c;
+  outline: none;
+  
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #007acc;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #007acc;
+  cursor: pointer;
+  border: none;
+}
+
+.volume-display {
+  font-size: 0.8rem;
+  color: #9d9d9d;
+  min-width: 35px;
+}
+
+.status {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #9d9d9d;
+  padding: 8px;
+  background: #252526;
+  border-radius: 4px;
+  border-left: 3px solid #3c3c3c;
+  transition: border-color 0.3s ease;
+}
+
+.status.playing {
+  border-left-color: #007acc;
+  color: #ffffff;
+}
+
+.icon {
+  display: inline-block;
+}

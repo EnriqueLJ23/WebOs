@@ -1,0 +1,34 @@
+<!-- window.component.html -->
+<div
+  #windowRef
+  cdkDrag
+  cdkDragBoundary=".desktop"
+  class="window"
+  
+  [style.left.px]="left"
+  [style.top.px]="top"
+  [style.width.px]="width"
+  [style.height.px]="height"
+  [style.zIndex]="zIndex()"
+>
+  <div class="title-bar" cdkDragHandle>
+    <span>{{ title() }}</span>
+    <div class="controls">
+      <button></button>
+      <button></button>
+      <button (click)="onClose()"></button>
+    </div>
+  </div>
+ 
+  <div class="window-content">
+    <ng-container *ngComponentOutlet="componentToRender"></ng-container>
+  </div>
+
+  <!-- Resize handle -->
+  <div
+    class="resize-handle bottom-right"
+    (mousedown)="initResize($event, 'bottom-right')"
+    [class.resizing]="resizing && resizeDir === 'bottom-right'"
+  ></div>
+ 
+</div>
